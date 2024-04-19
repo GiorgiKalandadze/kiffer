@@ -4,7 +4,10 @@ if (!process.env.NODE_ENV) {
 const express = require('express')
 const {RESULT_CODES, RESULT_STATUSES} = require('./src/constants');
 const app = express();
+const router = require('./src/routes');
 
+
+app.use('/api', router);
 app.get('/', (req, res) => {
     res.status(200).json({
         resultCode: RESULT_CODES.SUCCESS,
