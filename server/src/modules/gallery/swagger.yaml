@@ -1,0 +1,89 @@
+openapi: 3.0.0
+info:
+  title: Image Service API
+  description: API to manage and retrieve images.
+  version: "1.0.0"
+servers:
+  - url: http://localhost:3000
+paths:
+  /v1/images:
+    get:
+      summary: Get all images
+      description: Retrieves a list of images.
+      responses:
+        '200':
+          description: A list of images.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Image'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /v1/image/{id}:
+    get:
+      summary: Get an image by ID
+      description: Retrieves a single image by its unique ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The ID of the image to retrieve.
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        '200':
+          description: Detailed information about the image.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Image'
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Image not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Image:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Sunset"
+        url:
+          type: string
+          example: "http://example.com/image/1.jpg"
+        description:
+          type: string
+          example: "A beautiful sunset over the hills."
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Error message"
