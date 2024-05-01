@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--style-space-24);
+}
+
+.my-masonry-grid {
+    display: -webkit-box; /* Not needed if autoprefixing */
+    display: -ms-flexbox; /* Not needed if autoprefixing */
+    display: flex;
+    width: auto;
+    border: 1px solid red;
+    max-width: 1200px;
+}
+
+.my-masonry-grid_column {
+    background-clip: padding-box;
+}
+
+.img-card {
+    width: 255px;
+}
