@@ -1,4 +1,7 @@
 node_modules
+.idea
+build
+public
+coverage
 .env
 package-lock.json
-.idea
