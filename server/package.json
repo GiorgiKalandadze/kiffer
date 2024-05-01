@@ -22,11 +22,16 @@
   },
   "homepage": "https://github.com/GiorgiKalandadze/kiffer#readme",
   "dependencies": {
+    "@google-cloud/storage": "^7.10.2",
+    "axios": "^1.6.8",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "joi": "^17.12.3",
     "js-yaml": "^4.1.0",
-    "swagger-ui-express": "^5.0.0"
+    "multer": "^1.4.5-lts.1",
+    "swagger-ui-express": "^5.0.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "eslint": "^9.0.0",
