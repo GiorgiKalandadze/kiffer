@@ -1,19 +1,20 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    row-gap: var(--style-space-24);
+    border: 1px solid red;
+}
+.search-bar {
+    margin-bottom: var(--style-space-24);
 }
 
 .my-masonry-grid {
     display: -webkit-box; /* Not needed if autoprefixing */
     display: -ms-flexbox; /* Not needed if autoprefixing */
     display: flex;
-    width: auto;
-    border: 1px solid red;
-    max-width: 1200px;
+    justify-content: space-evenly;
 }
 
 .my-masonry-grid_column {
+    padding-left: var(--style-space-24);
+    padding-right: var(--style-space-24);
     background-clip: padding-box;
 }
 
