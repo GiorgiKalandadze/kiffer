@@ -47,9 +47,9 @@ router.post('/v1/image',
         await addImage(request, response);
     });
 
-router.delete('/v1/image',
+router.delete('/v1/image/:id',
     joiValidator({
-        query: Joi.object({
+        params: Joi.object({
             id: Joi.string().required(),
         }),
     }),

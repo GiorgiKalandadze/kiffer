@@ -7,10 +7,23 @@ const storage = new Storage({projectId: config.GCP_PROJECT_ID, keyFilename});
 const {v4: uuidv4} = require('uuid');
 
 async function getImages(request, response) {
+    function parseTags(tags) {
+        const tagsArray = tags.split(',');
+        return tagsArray.map((tag) => tag.trim());
+    }
+
     try {
-        const {filter = '', skip = 0, take = 20} = request.query;
+        let {filterTags = null, skip = 0, take = 20} = request.query;
+
+        let filterValue = {};
+        if(filterTags) {
+            filterTags = parseTags(filterTags);
+            const regexQueries = filterTags && filterTags.map(tag => new RegExp(tag, 'i'));
+            filterValue = {tags: {$in: regexQueries}};
+        }
+
         // TODO: Maybe add cache layer
-        const gifsList = await DBManager.getManyDocuments(config.DB_NAME, config.MONGO_COLLECTION_KIFFER_IMAGES, {tags: new RegExp(`.*${filter}.*`, 'i')}, Number(skip), Number(take));
+        const gifsList = await DBManager.getManyDocuments(config.DB_NAME, config.MONGO_COLLECTION_KIFFER_IMAGES, filterValue, Number(skip), Number(take));
         return response.status(200).json({
             resultCode: RESULT_CODES.SUCCESS,
             resultStatus: RESULT_STATUSES.SUCCESS,
@@ -31,11 +44,15 @@ async function getImages(request, response) {
 }
 
 async function addImage(request, response) {
+    function parseTags(tags) {
+        const tagsArray = tags.split(',');
+        return tagsArray.map((tag) => tag.trim());
+    }
+
     try {
-        const {tags} = request.body;
-        const {originalname} = request.file;
-        console.info(`### Request to add new gif named - ${originalname}`);
-        const newUniqueName = generateUniqueImageName(originalname);
+        let {tags} = request.body;
+        tags = parseTags(tags);
+        const newUniqueName = generateUniqueImageName();
         const downloadURL = await uploadImageToGCS(request.file.buffer, newUniqueName);
         console.info('### Successfully uploaded to GCS. DownloadURL from cloud storage - ', downloadURL);
         const newID = uuidv4();
@@ -62,20 +79,20 @@ async function addImage(request, response) {
         });
     }
 
-    function generateUniqueImageName(originalName) {
-        return Date.now() + '_' + originalName;
+    function generateUniqueImageName() {
+        return Date.now() + '_' + uuidv4();
     }
 }
 
 async function getImage(request, response) {
     try {
         const {id} = request.params;
-        const gif = await DBManager.getDocument(config.DB_NAME, config.MONGO_COLLECTION_KIFFER_IMAGES, {id});
+        const image = await DBManager.getDocument(config.DB_NAME, config.MONGO_COLLECTION_KIFFER_IMAGES, {id});
         return response.json({
             resultCode: RESULT_CODES.SUCCESS,
             resultStatus: RESULT_STATUSES.SUCCESS,
             message: '',
-            data: {gif},
+            data: image,
         });
 
     } catch (error) {
@@ -91,7 +108,7 @@ async function getImage(request, response) {
 }
 
 async function deleteImage(request, response) {
-    const {id} = request.query;
+    const {id} = request.params;
     try {
         const image = await DBManager.getDocument(config.DB_NAME, config.MONGO_COLLECTION_KIFFER_IMAGES, {id});
         if (!image) {

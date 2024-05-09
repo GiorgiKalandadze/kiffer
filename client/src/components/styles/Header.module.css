@@ -1,0 +1,20 @@
+.header {
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--style-color-primary);
+    margin-bottom: var(--style-space-24);
+}
+
+.nav-link {
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom-color 0.3s;
+    padding:var(--style-space-4);
+    color: var(--style-color-primary);
+    margin: 0 var(--style-space-12);
+}
+
+.nav-link:hover {
+    border-bottom: 2px solid var(--style-color-primary);
+}

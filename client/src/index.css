@@ -1,0 +1,47 @@
+ :root {
+  /* Spacing */
+  --style-space-4: 4px;
+  --style-space-8: 8px;
+  --style-space-12: 12px;
+  --style-space-16: 16px;
+  --style-space-20: 20px;
+  --style-space-24: 24px;
+  --style-space-28: 28px;
+  --style-space-32: 32px;
+  --style-space-36: 36px;
+  --style-space-40: 40px;
+  --style-space-64: 64px;
+  --style-space-92: 92px;
+  --style-space-128: 128px;
+
+   /* Radius */
+   --style-border-radius-4: 4px;
+   --style-border-radius-8: 8px;
+   --style-border-radius-12: 12px;
+   --style-border-radius-circle: 50%;
+
+   /* Colors */
+    --style-color-primary-orange: #FA7D09;
+    --style-color-primary-red: #FF4301;
+    --style-color-primary-brown: #2F2519;
+    --style-color-primary-gray: #4A3F35;
+
+     --style-color-primary: var(--style-color-primary-gray);
+     --style-color-secondary: var(--style-color-primary-brown);
+
+     --style-app-max-width: 1200px;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

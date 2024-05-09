@@ -1,6 +1,9 @@
 .container {
-    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
+
 .search-bar {
     margin-bottom: var(--style-space-24);
 }
@@ -9,15 +12,19 @@
     display: -webkit-box; /* Not needed if autoprefixing */
     display: -ms-flexbox; /* Not needed if autoprefixing */
     display: flex;
-    justify-content: space-evenly;
+    column-gap: var(--style-space-24);
 }
 
-.my-masonry-grid_column {
-    padding-left: var(--style-space-24);
-    padding-right: var(--style-space-24);
-    background-clip: padding-box;
-}
 
 .img-card {
-    width: 255px;
+    width: 100%;
+    border: 2px solid transparent;
+    margin-bottom: var(--style-space-24);
+}
+
+.img-card:hover {
+    cursor: pointer;
+    border: 2px solid var(--style-color-primary);
+    transform: translateY(-8px);
+    transition: transform 0.4s, border 0.4s;
 }
